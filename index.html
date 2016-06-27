@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html ng-app="memoryGame">
+<head >
+	<title> Memory game</title>
+
+	<link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script src="lib/angular.min.js"></script>
+
+	<script src="js/tile.js"></script>
+	<script src="js/services.js"></script>
+	<script src="js/controllers.js"></script>
+
+</head>
+<body ng-controller="game">
+	<section class="overlay" ng-class="{visible: pairsLeft == 0}">
+		<h2> Congratulations, you've won! </h2>
+	</section>
+
+	<section class="intro">
+		<div class="container">
+			<h1> Memory </h1>
+			<form name="myForm">
+                <label for="game-field-size"> Wybierz rozmiar planszy: </label>
+                <select name="game-field-size" ng-model="size">
+                    <option value="4" selected> 2x2 </option>
+                    <option value="6"> 3x3 </option>
+                    <option value="8"> 4x4 </option>
+                </select>
+            </form>
+			<button ng-click="startGame()"> START </button>
+		</div>
+	</section>
+
+	<section class="game-field">
+		<div class="container">
+			<div class="cover" ng-repeat="g in grid track by $index" ng-click="flipTile(g)" ng-class="{flipped: !g.flipped}">
+				<img class="tile" src="{{g.img}}">
+			</div>
+		</div>
+	</section>
+</body>
+</html>
