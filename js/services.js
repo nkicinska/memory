@@ -1,11 +1,13 @@
 (function() {
+	'use strict';
+
 	var app = angular.module('memoryGame', []);
 
 	app.factory('cardsFactory', function($http) {
 
 		function createGrid(size) {
-			
-			var promise = $http.get('api/cards.json').then(function(response) { 
+
+			var promise = $http.get('api/cards.json').then(function(response) {
 				var arr = [],
 					i = 0;
 
@@ -22,7 +24,7 @@
 		}
 
 		function shuffle(arr) {
-			var counter = arr.length - 1, 
+			var counter = arr.length - 1,
 				i,
 				temp;
 

@@ -1,4 +1,6 @@
 (function() {
+    'use strict';
+
     var app = angular.module('memoryGame');
 
     app.controller('game', ['$scope', 'cardsFactory', '$timeout', function($scope, cardsFactory, $timeout) {
@@ -20,7 +22,6 @@
         }
 
         t.flipTile = function(g) {
-        	console.log(t.pairsLeft);
             if (g.flipped) {
                 return;
             }
@@ -40,7 +41,7 @@
                 	$timeout(function() {
                 		t.firstMatch.flip();
                 		t.secondMatch.flip();
-                	}, 250).then(function() {
+                	}, 350).then(function() {
                 		resetParams();
                 	})
                 }
