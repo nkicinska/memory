@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html ng-app="memoryGame">
-<head >
+<head>
 	<title> Memory game</title>
 
-	<link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="css/app.css">
 
 	<script src="bower_components/angular/angular.min.js"></script>
@@ -13,30 +13,26 @@
 	<script src="js/controllers.js"></script>
 
 </head>
-<body ng-controller="game">
-	<section class="overlay" ng-class="{visible: pairsLeft == 0}">
-		<h2> Congratulations, you've won! </h2>
-	</section>
-
+<body ng-controller="gameCtrl as game">
 	<section class="intro">
 		<div class="container">
-			<h1> Memory </h1>
-			<form name="myForm">
-                <label for="game-field-size"> Wybierz rozmiar planszy: </label>
-                <select name="game-field-size" ng-model="size">
-                    <option value="4" selected> 2x2 </option>
-                    <option value="6"> 3x3 </option>
-                    <option value="8"> 4x4 </option>
-                </select>
-            </form>
-			<button ng-click="startGame()"> START </button>
+			<h1> Memory game </h1>
+			<h2> Click on the button to begin </h2>
+			<button ng-click="game.startGame()"> START </button>
 		</div>
 	</section>
 
 	<section class="game-field">
+		<div class="game-field-intro">
+			<h2> Number of attempts: {{game.tries}}</h2>
+			<h3 ng-show="game.pairsLeft == 0"> Congratulations! </h3>
+		</div>
 		<div class="container">
-			<div class="cover" ng-repeat="g in grid track by $index" ng-click="flipTile(g)" ng-class="{flipped: !g.flipped}">
-				<img class="tile" src="{{g.img}}">
+			<div class="card-container" ng-repeat="g in game.grid track by $index" ng-click="!game.preventClick && game.flipTile(g)">
+				<div class="card" ng-class="{flipped: g.flipped}">
+					<img class="tile front" src="{{g.img}}">
+					<img class="tile back" src="img/back.jpg">
+				</div>
 			</div>
 		</div>
 	</section>

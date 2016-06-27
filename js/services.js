@@ -5,19 +5,24 @@
 
 	app.factory('cardsFactory', function($http) {
 
-		function createGrid(size) {
+		function createGrid() {
 
 			var promise = $http.get('api/cards.json').then(function(response) {
 				var arr = [],
-					i = 0;
+					i = 0,
+					size = response.data.size;
 
 				for(i; i < size; i++) {
-					arr.push(new Tile(response.data[i].path));
-					arr.push(new Tile(response.data[i].path));
+					arr.push(new Tile(response.data.paths[i].path));
+					arr.push(new Tile(response.data.paths[i].path));
 				}
 
 				arr = shuffle(arr);
-				return arr;
+
+				return {
+					arr: arr,
+					size: size
+				}
 			});
 
 			return promise;
